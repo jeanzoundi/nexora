@@ -346,8 +346,8 @@ const LANG = {
 };
 
 const CONFIG = {
-  email: "contact@nexoraia.pro",
-  phone: "+225 05 74 12 77 35",
+  email: "infos@nexoraia.pro",
+  phone: "+225 0768768275",
   location: "Abidjan, Côte d'Ivoire",
 };
 
