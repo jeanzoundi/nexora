@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE_ID  = "service_3eva0es";
+const EMAILJS_TEMPLATE_ID = "template_l3sqzlt";
+const EMAILJS_PUBLIC_KEY  = "xOAB1m33DTeOpCelf";
 
 const G = {
   black: "#040507", deep: "#080b12", surface: "#0d1220",
@@ -346,8 +351,8 @@ const LANG = {
 };
 
 const CONFIG = {
-  email: "contact@nexoraia.pro",
-  phone: "+225 05 74 12 77 35",
+  email: "infos@nexoraia.pro",
+  phone: "+225 0768768275",
   location: "Abidjan, Côte d'Ivoire",
 };
 
@@ -984,9 +989,25 @@ function PageContact({ navigate, t }) {
       setError(f.error); return;
     }
     setError(""); setLoading(true);
-    // const WEBHOOK = "https://ton-n8n.com/webhook/nexora-contact";
-    // await fetch(WEBHOOK, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(form) });
-    setTimeout(() => { setLoading(false); setSent(true); }, 1200);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          prenom:     form.prenom,
+          nom:        form.nom,
+          email:      form.email,
+          entreprise: form.entreprise,
+          pays:       form.pays,
+          taille:     form.taille,
+          besoin:     form.besoin,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+    } catch (e) {
+      console.error("EmailJS error:", e);
+    }
+    setLoading(false); setSent(true);
   };
 
   return (
